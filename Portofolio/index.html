@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Web Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* SCSS Variables */
+      :root {
+        --primary-color: #667eea;
+        --secondary-color: #764ba2;
+        --accent-color: #f093fb;
+        --text-dark: #2d3436;
+        --text-light: #636e72;
+        --text-white: #ffffff;
+        --background-light: #f8f9fa;
+        --background-dark: #2d3436;
+        --card-background: #ffffff;
+        --shadow-light: rgba(0, 0, 0, 0.1);
+        --shadow-medium: rgba(0, 0, 0, 0.15);
+        --shadow-heavy: rgba(0, 0, 0, 0.25);
+        --border-radius-sm: 8px;
+        --border-radius-md: 12px;
+        --border-radius-lg: 20px;
+        --transition-fast: 0.3s ease;
+        --transition-medium: 0.5s ease;
+        --gradient-primary: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        --gradient-accent: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--primary-color)
+        );
+        --font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+      }
+
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-family);
+        line-height: 1.6;
+        color: var(--text-dark);
+        overflow-x: hidden;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--text-dark);
+        position: relative;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--gradient-primary);
+        border-radius: 2px;
+      }
+
+      p {
+        margin-bottom: 1rem;
+        color: var(--text-light);
+        font-size: 1.1rem;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Section */
+      .section {
+        padding: 80px 0;
+        position: relative;
+      }
+
+      .section-light {
+        background-color: var(--background-light);
+      }
+
+      .section-dark {
+        background: var(--gradient-primary);
+        color: var(--text-white);
+      }
+
+      .section-dark h2 {
+        color: var(--text-white);
+      }
+
+      .section-dark p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        transition: var(--transition-fast);
+      }
+
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 20px var(--shadow-light);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        position: relative;
+        transition: var(--transition-fast);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+        transition: width var(--transition-fast);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-dark);
+        margin: 3px 0;
+        transition: var(--transition-fast);
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: var(--gradient-primary);
+        color: var(--text-white);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 1000,0 1000,1000"/></svg>');
+        background-size: cover;
+      }
+
+      .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-text h1 {
+        color: var(--text-white);
+        background: none;
+        -webkit-text-fill-color: var(--text-white);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-text .subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .hero-image {
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 8px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px var(--shadow-heavy);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 12px 30px;
+        border-radius: var(--border-radius-md);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-fast);
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+      }
+
+      .btn-primary {
+        background: var(--gradient-accent);
+        color: var(--text-white);
+        box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(240, 147, 251, 0.4);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--text-white);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      /* Cards */
+      .card {
+        background: var(--card-background);
+        border-radius: var(--border-radius-lg);
+        padding: 2rem;
+        box-shadow: 0 10px 30px var(--shadow-light);
+        transition: var(--transition-fast);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 4px;
+        background: var(--gradient-primary);
+        transition: var(--transition-fast);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px var(--shadow-medium);
+      }
+
+      .card:hover::before {
+        left: 0;
+      }
+
+      /* Grid Layouts */
+      .grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+
+      /* About Section */
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 4rem;
+        align-items: start;
+      }
+
+      .about-info {
+        background: var(--card-background);
+        padding: 2rem;
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 10px 30px var(--shadow-light);
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: var(--border-radius-sm);
+        transition: var(--transition-fast);
+      }
+
+      .contact-item:hover {
+        background: var(--background-light);
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-white);
+        font-size: 1.2rem;
+      }
+
+      .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      /* Skills Section */
+      .skill-item {
+        margin-bottom: 2rem;
+      }
+
+      .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .skill-name {
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .skill-percentage {
+        font-weight: 500;
+        color: var(--primary-color);
+      }
+
+      .skill-bar {
+        height: 8px;
+        background: var(--background-light);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: var(--gradient-primary);
+        border-radius: 4px;
+        transition: width 2s ease-in-out;
+        position: relative;
+      }
+
+      .skill-progress::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding-left: 3rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gradient-primary);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        background: var(--card-background);
+        padding: 2rem;
+        border-radius: var(--border-radius-md);
+        box-shadow: 0 5px 20px var(--shadow-light);
+        transition: var(--transition-fast);
+      }
+
+      .timeline-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 10px 30px var(--shadow-medium);
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -2.75rem;
+        top: 2rem;
+        width: 16px;
+        height: 16px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        border: 4px solid var(--card-background);
+        z-index: 2;
+      }
+
+      .timeline-date {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+      }
+
+      .timeline-company {
+        color: var(--text-light);
+        font-style: italic;
+        margin-bottom: 1rem;
+      }
+
+      /* Portfolio */
+      .portfolio-item {
+        position: relative;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        background: var(--card-background);
+        box-shadow: 0 10px 30px var(--shadow-light);
+        transition: var(--transition-fast);
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px var(--shadow-medium);
+      }
+
+      .portfolio-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: var(--transition-fast);
+      }
+
+      .portfolio-item:hover .portfolio-image {
+        transform: scale(1.05);
+      }
+
+      .portfolio-content {
+        padding: 1.5rem;
+      }
+
+      .portfolio-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+      }
+
+      .portfolio-description {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .portfolio-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .tag {
+        background: var(--gradient-primary);
+        color: var(--text-white);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .portfolio-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .portfolio-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition-fast);
+      }
+
+      .portfolio-link:hover {
+        color: var(--secondary-color);
+      }
+
+      /* Certificates */
+      .certificate-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: var(--card-background);
+        border-radius: var(--border-radius-md);
+        box-shadow: 0 5px 20px var(--shadow-light);
+        transition: var(--transition-fast);
+      }
+
+      .certificate-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 10px 30px var(--shadow-medium);
+      }
+
+      .certificate-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-primary);
+        border-radius: var(--border-radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-white);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .certificate-info h4 {
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .certificate-issuer {
+        color: var(--text-light);
+        font-style: italic;
+        margin-bottom: 0.5rem;
+      }
+
+      .certificate-date {
+        color: var(--primary-color);
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--background-dark);
+        color: var(--text-white);
+        padding: 3rem 0 1rem;
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-link {
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-white);
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: var(--transition-fast);
+      }
+
+      .social-link:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px var(--shadow-medium);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .nav-toggle {
+          display: flex;
+        }
+
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 2rem;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .btn-group {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .profile-image {
+          width: 250px;
+          height: 250px;
+        }
+
+        .timeline {
+          padding-left: 2rem;
+        }
+
+        .timeline::before {
+          left: 0.5rem;
+        }
+
+        .timeline-item::before {
+          left: -1.75rem;
+        }
+      }
+
+      /* Scroll Animation */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Loading Animation */
+      .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid var(--text-white);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="nav-container">
+          <a href="#home" class="nav-logo">Portfolio</a>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#home" class="nav-link">Beranda</a></li>
+            <li><a href="#about" class="nav-link">Tentang</a></li>
+            <li><a href="#skills" class="nav-link">Keahlian</a></li>
+            <li><a href="#education" class="nav-link">Pendidikan</a></li>
+            <li><a href="#experience" class="nav-link">Pengalaman</a></li>
+            <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+            <li><a href="#certificates" class="nav-link">Sertifikat</a></li>
+            <li><a href="#contact" class="nav-link">Kontak</a></li>
+          </ul>
+          <div class="nav-toggle" id="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text animate-on-scroll">
+            <h1>Sri Diva Siagian</h1>
+            <p class="subtitle">Full Stack Web Developer</p>
+            <p>  </p>
+              Passionate web developer dengan 3+ tahun pengalaman dalam
+              membangun aplikasi web modern menggunakan teknologi terdepan.
+              Spesialisasi dalam React, Node.js, dan cloud technologies.
+            </p>
+            <div class="btn-group">
+              <a href="#portfolio" class="btn btn-primary">
+                <i class="fas fa-eye"></i> Lihat Portfolio
+              </a>
+              <a href="#contact" class="btn btn-outline">
+                <i class="fas fa-envelope"></i> Hubungi Saya
+              </a>
+            </div>
+          </div>
+          <div class="hero-image animate-on-scroll">
+            <img
+              src="./images/dipoww.jpg"
+              alt="Profile Picture"
+              class="profile-image"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-light">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Tentang Saya
+        </h2>
+        <div class="about-content animate-on-scroll">
+          <div class="about-info">
+            <h3>Informasi Kontak</h3>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <strong>Email</strong><br />
+                <a href="mailto:ssridiva@email.com" class="contact-link"
+                  >ssridiva@email.com</a
+                >
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div>
+                <strong>WhatsApp</strong><br />
+                <a href="https://wa.me/081262321959" class="contact-link"
+                  >+62 812-6232-1959</a
+                >
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <strong>Lokasi</strong><br />
+                <span>Balige, Sumatera Utara, Indonesia</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <strong>Tanggal Lahir</strong><br />
+                <span>15 Januari 2005</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Profil Singkat</h3>
+            <p>
+              Saya adalah seorang Full Stack Web Developer yang passionate
+              dengan teknologi dan inovasi. Dengan pengalaman lebih dari 3 tahun
+              di industri teknologi, saya telah mengerjakan berbagai proyek
+              mulai dari website corporate, e-commerce, hingga aplikasi web
+              kompleks.
+            </p>
+
+            <p>
+              Keahlian utama saya meliputi pengembangan frontend menggunakan
+              React.js, Vue.js, dan teknologi modern lainnya, serta backend
+              development dengan Node.js, Python, dan database management. Saya
+              juga memiliki pengalaman dalam cloud computing, DevOps, dan mobile
+              app development.
+            </p>
+
+            <p>
+              Saya percaya bahwa teknologi harus digunakan untuk menyelesaikan
+              masalah nyata dan memberikan nilai tambah bagi pengguna. Oleh
+              karena itu, saya selalu mengutamakan user experience dan code
+              quality dalam setiap proyek yang saya kerjakan.
+            </p>
+
+            <h4>Minat & Hobi</h4>
+            <ul>
+              <li>Web Development & Programming</li>
+              <li>UI/UX Design</li>
+              <li>Open Source Contribution</li>
+              <li>Technology Research</li>
+              <li>Photography</li>
+              <li>Traveling & Exploring New Cultures</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Keahlian Teknis
+        </h2>
+        <div class="grid grid-2 animate-on-scroll">
+          <div class="card">
+            <h3>Frontend Development</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">HTML5 & CSS3</span>
+                <span class="skill-percentage">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="95"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">JavaScript (ES6+)</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="90"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">React.js</span>
+                <span class="skill-percentage">88%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="88"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Vue.js</span>
+                <span class="skill-percentage">82%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="82"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">SCSS/Sass</span>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="85"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Backend Development</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Node.js</span>
+                <span class="skill-percentage">87%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="87"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Python</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">PHP</span>
+                <span class="skill-percentage">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="75"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">MongoDB</span>
+                <span class="skill-percentage">83%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="83"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">MySQL</span>
+                <span class="skill-percentage">78%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="78"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Tools & Technologies</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Git & GitHub</span>
+                <span class="skill-percentage">92%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="92"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Docker</span>
+                <span class="skill-percentage">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="75"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">AWS</span>
+                <span class="skill-percentage">70%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="70"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Figma/Adobe XD</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="80"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Soft Skills</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Problem Solving</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="90"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Team Collaboration</span>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Project Management</span>
+                <span class="skill-percentage">82%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="82"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Communication</span>
+                <span class="skill-percentage">88%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="88"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section section-light">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Riwayat Pendidikan
+        </h2>
+        <div class="timeline animate-on-scroll">
+          <div class="timeline-item">
+            <div class="timeline-date">2017 - 2021</div>
+            <div class="timeline-title">S1 Informatika</div>
+            <div class="timeline-company">Institut Teknologi Del</div>
+            <p>IPK: 3.75/4.00 - Cumlaude</p>
+            <p>
+              Fokus studi: Software Engineering, Web Development, Database
+              Systems
+            </p>
+            <p>
+              <strong>Skripsi:</strong> "Implementasi Machine Learning untuk
+              Sistem Rekomendasi E-commerce menggunakan Collaborative Filtering"
+            </p>
+            <p><strong>Aktivitas:</strong></p>
+            <ul>
+              <li>Ketua Himpunan Mahasiswa Informatika (2019-2020)</li>
+              <li>Asisten Praktikum Web Programming (2020-2021)</li>
+              <li>Peserta Programming Contest Regional (2019, 2020)</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">2014 - 2017</div>
+            <div class="timeline-title">SMA Negeri 2 Balige</div>
+            <div class="timeline-company">Jurusan IPA</div>
+            <p>Nilai UN: 95.25 - Peringkat 3 Sekolah</p>
+            <p><strong>Prestasi:</strong></p>
+            <ul>
+              <li>
+                Juara 1 Olimpiade Sains Nasional bidang Informatika tingkat
+                Kabupaten (2016)
+              </li>
+              <li>
+                Juara 2 Kompetisi Programming antar SMA se-Sumatera Utara (2017)
+              </li>
+              <li>Ketua OSIS periode 2016-2017</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">2011 - 2014</div>
+            <div class="timeline-title">SMP Negeri 4 Balige</div>
+            <div class="timeline-company">Balige, Sumatera Utara</div>
+            <p>Nilai UN: 92.75 - Ranking 5 Sekolah</p>
+            <p><strong>Aktivitas:</strong></p>
+            <ul>
+              <li>Anggota Tim Robotika Sekolah</li>
+              <li>Peserta Olimpiade Matematika tingkat Kabupaten</li>
+              <li>Redaktur Majalah Sekolah</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section section-dark">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Pengalaman Kerja
+        </h2>
+        <div class="timeline animate-on-scroll">
+          <div class="timeline-item">
+            <div class="timeline-date">Januari 2022 - Sekarang</div>
+            <div class="timeline-title">Senior Full Stack Developer</div>
+            <div class="timeline-company">
+              PT. Teknologi Digital Sitoluama, Jakarta
+            </div>
+            <p><strong>Tanggung Jawab:</strong></p>
+            <ul>
+              <li> 
+                Memimpin tim development untuk proyek enterprise web
+                applications
+              </li>
+              <li>
+                Merancang dan mengimplementasikan arsitektur microservices
+              </li>
+              <li>Mengoptimalkan performa aplikasi dan database queries</li>
+              <li>Mentoring junior developers dan code review</li>
+              <li>Berkolaborasi dengan product manager dan UI/UX designer</li>
+            </ul>
+            <p>
+              <strong>Teknologi:</strong> React.js, Node.js, MongoDB, AWS,
+              Docker, Kubernetes
+            </p>
+            <p>
+              <strong>Pencapaian:</strong> Meningkatkan performa aplikasi hingga
+              40%, memimpin pengembangan 3 major projects yang digunakan 10,000+
+              users
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">Agustus 2021 - Desember 2021</div>
+            <div class="timeline-title">Full Stack Developer</div>
+            <div class="timeline-company">PT. Solusi Web Kreatif, Medan</div>
+            <p><strong>Tanggung Jawab:</strong></p>
+            <ul>
+              <li>
+                Mengembangkan web applications untuk klien dari berbagai
+                industri
+              </li>
+              <li>
+                Membuat responsive design dan ensure cross-browser compatibility
+              </li>
+              <li>Integrasi dengan third-party APIs dan payment gateways</li>
+              <li>Maintenance dan bug fixing untuk existing applications</li>
+              <li>Dokumentasi teknis dan user guide</li>
+            </ul>
+            <p>
+              <strong>Teknologi:</strong> Vue.js, Laravel, MySQL, Bootstrap,
+              jQuery
+            </p>
+            <p>
+              <strong>Pencapaian:</strong> Successfully delivered 8 web
+              projects, Client satisfaction rate 95%
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">Februari 2021 - Juli 2021</div>
+            <div class="timeline-title">Frontend Developer (Internship)</div>
+            <div class="timeline-company">
+              CV. Digital Creative Studio, Medan
+            </div>
+            <p><strong>Tanggung Jawab:</strong></p>
+            <ul>
+              <li>Mengonversi design PSD/Figma ke responsive HTML/CSS</li>
+              <li>Implementasi interactive features menggunakan JavaScript</li>
+              <li>Optimasi website untuk SEO dan performance</li>
+              <li>Testing dan debugging pada berbagai browsers dan devices</li>
+              <li>Kolaborasi dengan design team untuk UI/UX improvements</li>
+            </ul>
+            <p>
+              <strong>Teknologi:</strong> HTML5, CSS3, SCSS, JavaScript,
+              React.js
+            </p>
+            <p>
+              <strong>Pencapaian:</strong> Berhasil menyelesaikan 5 company
+              profile websites, Mendapat offer full-time position
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">Juni 2020 - Agustus 2020</div>
+            <div class="timeline-title">Web Developer (Freelance)</div>
+            <div class="timeline-company">Various Clients</div>
+            <p><strong>Proyek:</strong></p>
+            <ul>
+              <li>E-commerce website untuk UMKM lokal</li>
+              <li>Company profile dan landing pages</li>
+              <li>Simple inventory management system</li>
+              <li>WordPress customization dan plugin development</li>
+            </ul>
+            <p>
+              <strong>Teknologi:</strong> WordPress, PHP, MySQL, HTML/CSS,
+              JavaScript
+            </p>
+            <p>
+              <strong>Pencapaian:</strong> 12 completed projects, Average client
+              rating 4.8/5
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Portfolio Proyek
+        </h2>
+        <div class="grid grid-3 animate-on-scroll">
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop"
+              alt="E-commerce Platform"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">E-commerce Platform</h3>
+              <p class="portfolio-description">
+                Platform e-commerce lengkap dengan fitur payment gateway,
+                inventory management, dan admin dashboard. Mendukung
+                multi-vendor dan real-time notifications.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">React.js</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Stripe API</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop"
+              alt="Analytics Dashboard"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Business Analytics Dashboard</h3>
+              <p class="portfolio-description">
+                Dashboard analytics untuk business intelligence dengan real-time
+                data visualization, reporting system, dan predictive analytics
+                menggunakan machine learning.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">Vue.js</span>
+                <span class="tag">Python</span>
+                <span class="tag">D3.js</span>
+                <span class="tag">TensorFlow</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop"
+              alt="Learning Management System"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Learning Management System</h3>
+              <p class="portfolio-description">
+                Platform pembelajaran online dengan fitur video streaming, quiz
+                system, progress tracking, dan certificate generation. Support
+                untuk 1000+ concurrent users.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">React.js</span>
+                <span class="tag">Express.js</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">AWS S3</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop"
+              alt="Mobile Banking App"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Mobile Banking App</h3>
+              <p class="portfolio-description">
+                Aplikasi mobile banking dengan fitur transfer, payment,
+                investment tracking, dan financial planning. Dilengkapi dengan
+                biometric authentication dan encryption.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">React Native</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Blockchain</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop"
+              alt="Smart City Platform"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Smart City IoT Platform</h3>
+              <p class="portfolio-description">
+                Platform IoT untuk smart city management dengan monitoring
+                traffic, air quality, energy consumption, dan waste management
+                dalam real-time.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">Angular</span>
+                <span class="tag">Python</span>
+                <span class="tag">InfluxDB</span>
+                <span class="tag">Docker</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item">
+            <img
+              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop"
+              alt="Social Media Platform"
+              class="portfolio-image"
+            />
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Social Media Platform</h3>
+              <p class="portfolio-description">
+                Platform media sosial dengan fitur posting, messaging, live
+                streaming, dan content recommendation algorithm. Support untuk
+                millions of users.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tag">React.js</span>
+                <span class="tag">GraphQL</span>
+                <span class="tag">Redis</span>
+                <span class="tag">AWS</span>
+              </div>
+              <div class="portfolio-links">
+                <a href="#" class="portfolio-link">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="portfolio-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section section-light">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Sertifikat & Penghargaan
+        </h2>
+        <div class="grid grid-2 animate-on-scroll">
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fab fa-aws"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>AWS Certified Solutions Architect</h4>
+              <p class="certificate-issuer">Amazon Web Services</p>
+              <p class="certificate-date">Oktober 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fab fa-google"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>Google Cloud Professional Developer</h4>
+              <p class="certificate-issuer">Google Cloud Platform</p>
+              <p class="certificate-date">Agustus 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fab fa-react"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>React Developer Certification</h4>
+              <p class="certificate-issuer">Meta (Facebook)</p>
+              <p class="certificate-date">Juni 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>MongoDB Certified Developer</h4>
+              <p class="certificate-issuer">MongoDB University</p>
+              <p class="certificate-date">April 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fab fa-docker"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>Docker Certified Associate</h4>
+              <p class="certificate-issuer">Docker Inc.</p>
+              <p class="certificate-date">Februari 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>Certified Ethical Hacker (CEH)</h4>
+              <p class="certificate-issuer">EC-Council</p>
+              <p class="certificate-date">Januari 2023</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>Best Developer Award</h4>
+              <p class="certificate-issuer">PT. Teknologi Digital Indonesia</p>
+              <p class="certificate-date">Desember 2022</p>
+            </div>
+          </div>
+
+          <div class="certificate-item">
+            <div class="certificate-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="certificate-info">
+              <h4>Full Stack Web Development</h4>
+              <p class="certificate-issuer">freeCodeCamp</p>
+              <p class="certificate-date">September 2021</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-dark">
+      <div class="container">
+        <h2
+          class="animate-on-scroll"
+          style="text-align: center; margin-bottom: 3rem"
+        >
+          Mari Berkolaborasi!
+        </h2>
+        <div
+          class="animate-on-scroll"
+          style="text-align: center; max-width: 600px; margin: 0 auto"
+        >
+          <p style="font-size: 1.2rem; margin-bottom: 3rem">
+            Saya selalu terbuka untuk proyek-proyek menarik dan peluang
+            kolaborasi. Mari diskusikan bagaimana kita bisa bekerja sama untuk
+            mewujudkan ide Anda!
+          </p>
+
+          <div class="btn-group" style="justify-content: center">
+            <a href="mailto:ssridiva@email.com" class="btn btn-primary">
+              <i class="fas fa-envelope"></i> Kirim Email
+            </a>
+            <a href="https://wa.me/081262321959" class="btn btn-outline">
+              <i class="fab fa-whatsapp"></i> Chat WhatsApp
+            </a>
+          </div>
+
+          <div class="social-links">
+            <a
+              href="https://linkedin.com/in/sri-diva-siagian"
+              class="social-link"
+              title="LinkedIn"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a
+              href="https://github.com/sri-diva-siagian"
+              class="social-link"
+              title="GitHub"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://twitter.com/ Diva Siagian"
+              class="social-link"
+              title="Twitter"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://instagram.com/ Diva Siagian"
+              class="social-link"
+              title="Instagram"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://dribbble.com/ Diva Siagian"
+              class="social-link"
+              title="Dribbble"
+            >
+              <i class="fab fa-dribbble"></i>
+            </a>
+            <a
+              href="https://behance.net/SriDivaSiagian"
+              class="social-link"
+              title="Behance"
+            >
+              <i class="fab fa-behance"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2025 Diva Siagian. Dibuat dengan ❤️ menggunakan SCSS
+      
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Loading Screen
+      window.addEventListener("load", () => {
+        const loading = document.getElementById("loading");
+        loading.classList.add("hidden");
+        setTimeout(() => {
+          loading.style.display = "none";
+        }, 500);
+      });
+
+      // Navbar Scroll Effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth Scrolling for Navigation Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animate on Scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animated");
+
+            // Animate skill bars
+            if (entry.target.querySelector(".skill-progress")) {
+              const skillBars =
+                entry.target.querySelectorAll(".skill-progress");
+              skillBars.forEach((bar) => {
+                const width = bar.dataset.width;
+                setTimeout(() => {
+                  bar.style.width = width + "%";
+                }, 200);
+              });
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for animation
+      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Mobile Navigation Toggle
+      const navToggle = document.getElementById("nav-toggle");
+      const navMenu = document.getElementById("nav-menu");
+
+      navToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        navToggle.classList.toggle("active");
+      });
+
+      // Close mobile menu when link is clicked
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          navMenu.classList.remove("active");
+          navToggle.classList.remove("active");
+        });
+      });
+
+      // Active Navigation Link
+      window.addEventListener("scroll", () => {
+        let current = "";
+        const sections = document.querySelectorAll("section");
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          current =
+            window.scrollY >= sectionTop ? section.getAttribute("id") : current;
+        });
+
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
